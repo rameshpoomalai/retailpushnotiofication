@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en" class="no-js">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BMD Enterprise</title>
+  <meta name="description" content="BMD Enterprise (An IBM Company)" />
+  <meta name="keywords" content="html5 template, css3, one page, animations, agency, portfolio, web design" />
+  <meta name="author" content="Ananth" />
+  <!-- Bootstrap -->
+  <script src="js/modernizr.custom.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/jquery.fancybox.css" rel="stylesheet">
+  <link href="css/flickity.css" rel="stylesheet" >
+  <link href="css/animate.css" rel="stylesheet">
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/queries.css" rel="stylesheet">
+
+</head>
+<body onload="myFunction();">
+  <header>
+    <section class="hero">
+      <div class="texture-overlay"></div>
+      <div class="container">
+        <div class="row nav-wrapper">
+          <h1 class="animated fadeInDown">BMD Enterprise, An @IBM Company.</h1>
+          <h4 class="animated fadeInDown">An exclusive platform to select your interests</h4>
+        </div>
+        <div class="row hero-content">
+          <div style="float: top; height:200px">
+          <div id="offerContainter" class="col-md-6 col-sm-6 col-xs-6 text-left">
+            There are no offers
+          </div>
+          <div id="storeAlertsContainter" class="col-md-6 col-sm-6 col-xs-6 text-left" style="visibility:hidden">
+            There are no alerts
+          </div>
+        </div>
+          <div class="col-md-12">
+
+            <a href='' class="use-btn animated fadeInUp">Register</a>
+            <a href="JavaScript:openOfferMessage();" class="use-btn animated fadeInUp">Offers Messages</a>
+            <a href="JavaScript:openStoreAlerts();" class="use-btn animated fadeInUp">Store Alerts</a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="BMSPushSDK.js" async></script>
+  <script src="BMSPushServiceWorker.js" async></script>
+  <script>
+
+  function openOfferMessage()
+  {
+      document.getElementById('offerContainter').style.visibility='visible'
+      document.getElementById('storeAlertsContainter').style.visibility='hidden'
+  }
+
+  function openStoreAlerts()
+  {
+    document.getElementById('storeAlertsContainter').style.visibility='visible'
+    document.getElementById('offerContainter').style.visibility='hidden'
+  }
+
+  function myFunction() {
+
+
+    var bmsPush = new BMSPush()
+
+    if('serviceWorker' in navigator){
+      // Handler for messages coming from the service worker
+      navigator.serviceWorker.addEventListener('message', function(event){
+          console.log("Client 1 Received Message: " + event.data);
+
+      });
+  }
+
+    function callback(response) {
+      alert(response.response)
+    }
+
+    var initParams = {
+      "appGUID":"aa112626-adbb-4276-9b6c-635554eb87aa",
+      "appRegion":".ng.bluemix.net",
+      "clientSecret":"06f2cf4b-beda-4de2-9c62-463c76664471",
+      "websitePushIDSafari": "Optional parameter for Safari Push Notifications only. Refer Docs."
+    }
+
+    //Initialize Push
+    bmsPush.initialize(initParams, callback)
+
+    //Register Push
+    bmsPush.register(function(response) {
+
+      /*
+      //Retrieve available tags
+      bmsPush.retrieveAvailableTags(function(response) { //Retrieve available tags
+      var jsonResponse = JSON.parse(response.response)
+      var tagsArray = []
+      for (i in jsonResponse.tags){
+      tagsArray.push(jsonResponse.tags[i].name)
+    }
+    alert(tagsArray)
+
+    //Subscribe for tags
+    bmsPush.subscribe(tagsArray,function(response) {
+    alert(response.response)
+
+    //Unsubscribe From tags
+    bmsPush.unSubscribe(tagsArray,function(response) {
+    alert(response.response)
+
+    //delete registration From Push
+    bmsPush.unRegisterDevice(function(response) {
+    alert(response.response)
+  })
+})
+})
+}) */
+})
+}
+
+
+</script>
+
+</body>
+</html>
